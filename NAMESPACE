@@ -3,6 +3,7 @@
 export(createStreamsCpu)
 export(createStreamsGpu)
 export(fisher.sim)
+export(get_system_info)
 export(logfactSum)
 export(qqnormGpu)
 export(rexpGpu)

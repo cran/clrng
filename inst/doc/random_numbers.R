@@ -2,9 +2,9 @@
 library('clrng')
 
 ## ----unif, eval=TRUE----------------------------------------------------------
+get_system_info()
 if (detectGPUs()) {
 
-  setContext(grep("gpu", listContexts()$device_type)[1])
   ## show all the available platforms
   gpuR::listContexts()[,'platform']
   

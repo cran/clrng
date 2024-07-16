@@ -2,6 +2,7 @@
 library("clrng")
 
 ## ----streams, eval=TRUE-------------------------------------------------------
+get_system_info()
 if (detectGPUs()) {
   setContext(grep("gpu", listContexts()$device_type)[1])
     ## check gpu information

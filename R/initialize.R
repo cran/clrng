@@ -1,21 +1,20 @@
-###################################
-### clrng global options  ###
-###################################
-
 .onLoad <- function(libname, pkgname) {
+  
   # Set global options with default values
   options(clrng.Nglobal = c(16, 8))
   
-  if (!(currentDevice()$device_type %in% c('cpu', 'gpu'))) {
+  os <- Sys.info()[["sysname"]]
+  if (!(currentDevice()$device_type %in% c('cpu', 'gpu')) || os == "Darwin") {
     options(clrng.type = 'float')
   } else {
     options(clrng.type = c('float', 'double')[1 + gpuR::deviceHasDouble()])
   }
   
+
+  
 }
 
-
-# Create package environment
+## Create package environment
 clrng_env <<- new.env(parent = emptyenv())
 ns <- asNamespace('clrng')
 assign("clrng_env", clrng_env, envir = ns)
@@ -38,9 +37,6 @@ invisible(mapply(function(xx) assign(xx, function(...){}, pos=clrng_env),
                       # assertive.base
                       c('get_name_in_parent', 'assert_engine', 'assert_all_are_true')
                    )))
-
-
-
 
 
 

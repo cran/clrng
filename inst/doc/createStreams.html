@@ -151,6 +151,22 @@ section.footnotes::before {
 -->
 <pre><code class="language-r">library(&quot;clrng&quot;)
 </code></pre>
+<pre><code class="language-r">get_system_info()
+</code></pre>
+<pre><code>## $`1. Operating System`
+## [1] &quot;Linux&quot;
+## 
+## $`2. CPU`
+## [1] &quot;Intel(R) Xeon(R) W-2145 CPU @ 3.70GHz&quot;
+## 
+## $`3. GPU`
+## [1] &quot;\020n\r\xaa9\177&quot;       &quot;\020n\r\xaa9\177&quot;       &quot;gfx906:sramecc+:xnack-&quot;
+## 
+## $`4. OpenCL Version`
+## [1] &quot;OpenCL 3.0 LINUX&quot;                                         
+## [2] &quot;OpenCL 1.2 Intel(R) FPGA SDK for OpenCL(TM), Version 20.3&quot;
+## [3] &quot;OpenCL 2.1 AMD-APP (3614.0)&quot;
+</code></pre>
 <pre><code class="language-r">if (detectGPUs()) {
   setContext(grep(&quot;gpu&quot;, listContexts()$device_type)[1])
     ## check gpu information

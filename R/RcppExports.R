@@ -21,3 +21,7 @@ CreateStreamsBackend <- function(creatorInitialGlobalR, streamsR, streamsMat, on
     .Call('_clrng_CreateStreamsBackend', PACKAGE = 'clrng', creatorInitialGlobalR, streamsR, streamsMat, onGpu, keepInitial)
 }
 
+getSystemInfo <- function() {
+    .Call('_clrng_getSystemInfo', PACKAGE = 'clrng')
+}
+

@@ -11,6 +11,7 @@
 #' @param ylab plot label.
 #' @param Nglobal a (non-empty) integer vector specifying size of work items for use, with default value from global option 'clrng.Nglobal'.
 #' @param Nlocal a (non-empty) integer vector specifying size of local group size of the index space, default is c(2,2).
+#' @param type a character string specifying "double" or "float" of random numbers, with default value from global option 'clrng.type'.
 #' @param verbose a logical value, if TRUE, print extra information, default is FALSE.
 #' @param ... other graphical parameters.
 #' @return a Normal Q-Q plot.
@@ -33,6 +34,7 @@ qqnormGpu<-function(y, ylim, mu=0, sigma=1, lower.tail=1,
                     xlab = "Theoretical Quantiles", ylab = "Sample Quantiles",
                     Nglobal = getOption('clrng.Nglobal'), 
                     Nlocal = c(2, 2),
+                    type = getOption('clrng.type'),
                     verbose=FALSE, ...){
   
   if(has.na <- any(ina <- is.na(y))) { ## keep NA's in proper places
@@ -54,14 +56,15 @@ qqnormGpu<-function(y, ylim, mu=0, sigma=1, lower.tail=1,
   }
   
   if (is.null(Nglobal)) stop("Nglobal is missing")
+  if (is.null(type))   stop('precision type missing')
   
   if(verbose) {
     cat('local sizes ', toString(Nlocal), '\nglobal sizes ', toString(Nglobal), '\n')
   }
   
   
-  #   p <-gpuR::vclVector(ppoints(n), type=gpuR::typeof(y))
-  out <-gpuR::vclVector(length=as.integer(n), type=gpuR::typeof(y))
+  #out <-gpuR::vclVector(length=as.integer(n), type=gpuR::typeof(y))
+  out <-gpuR::vclVector(length=as.integer(n), type=type)
   
   x <- as.vector(cpp_gpu_qqnorm(out, mu,sigma, lower.tail, Nglobal , Nlocal))
   
